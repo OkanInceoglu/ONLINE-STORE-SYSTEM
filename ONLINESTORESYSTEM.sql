@@ -69,3 +69,28 @@ FROM users u JOIN orders o ON u.id=o.user_id JOIN products p ON o.product_id=p.i
 SELECT u.name , SUM(p.price*o.quantity) as total_spending
 FROM orders o JOIN products p ON o.product_id=p.id JOIN users u ON u.id= o.user_id
 GROUP BY u.name;
+
+SELECT TOP 1 name,price
+FROM products
+ORDER BY price DESC;
+
+SELECT TOP 3 name, stock
+FROM products
+ORDER BY stock DESC;
+
+SELECT DISTINCT category
+FROM products;
+
+SELECT TOP 1 u.name,SUM(o.quantity*p.price) as total_spending
+FROM users u INNER JOIN orders o ON u.id=o.user_id INNER JOIN products p ON o.product_id=p.id
+GROUP BY u.name
+ORDER BY total_spending DESC;
+
+SELECT COUNT(*) AS product_count,AVG(price) AS avg_price
+FROM products
+WHERE category = 'Tech';
+
+SELECT u.name, SUM(o.quantity*p.price) as total_spending
+FROM users u JOIN orders o ON u.id=o.user_id JOIN products p on o.product_id=p.id
+GROUP BY u.name
+HAVING SUM(o.quantity*p.price)>100;
